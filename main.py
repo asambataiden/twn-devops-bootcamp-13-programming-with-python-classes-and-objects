@@ -1,11 +1,12 @@
-from user import User
-from post import Post
+import requests
+response = requests.get("https://gitlab.com/api/v4/users/asambataiden/projects")
+my_projects = response.json()
 
-app_user_one = User("nn@nn.com", "Nana Janashia", "pwd1", "DevOps Engineer")
-app_user_one.get_user_info()
+# print the whole objects list
+print(my_projects)
+print(type(my_projects))
 
-app_user_two = User("aa@aa.com", "James Bond", "supersecret", "Agent")
-app_user_two.get_user_info()
+# print just the names and urls
+for project in my_projects:
+    print(f"Project Name: {project['name']}\nProject Url: {project['http_url_to_repo']}\n")
 
-new_post = Post("on a secret mission today", app_user_two.name)
-new_post.get_post_info()
